@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import java.util.List; // For task (fibonacci)
+import java.util.ArrayList; // For task (fibonacci)
+
 class Task11 {
 	private static int k; // Maximum number of stairs that a hare can climb in one jump
 	private static int n; // Total number of stairs
@@ -22,17 +25,44 @@ class Task11 {
 		if (k == 1)
 			result = 1;
 		else
-			result = fibonacci(n + 1);
+			result = fibonacci(n);
 
 		return result;
 	}
 
 	// Numbers of fibonacci: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
-	private static int fibonacci(int n) { // Recursive method of fibonacci numbers
-		if (n == 1 || n == 2)
-			return 1;
-		else 
-			return fibonacci(n - 1) + fibonacci(n - 2);
+	// private static int fibonacci(int n) { // Recursive method of fibonacci numbers
+	// 	if (n == 1 || n == 2)
+	// 		return 1;
+	// 	else 
+	// 		return fibonacci(n - 1) + fibonacci(n - 2);
+	// }
+
+	private static int fibonacci(int n) { // TEMP
+		List<Integer> fibonacciList = new ArrayList<>();
+		
+		if (k > 2)
+			for (int i = 1; i <= k - 2; i++)
+				fibonacciList.add(0);
+
+		fibonacciList.add(1);
+		fibonacciList.add(1);
+		
+		for (int i = 1; i < n; i++) {
+			fibonacciList.add(sumOfListFibonacci(fibonacciList));
+			fibonacciList.remove(0);
+		}
+
+		return fibonacciList.get(k - 1);
+	}
+
+	private static int sumOfListFibonacci(List<Integer> fibonacciList) {
+		int sum = 0;
+
+		for (int number : fibonacciList)
+			sum += number;
+		
+		return sum;
 	}
 
 	private static boolean readInputFile() { // Method for read file "INPUT.txt"
