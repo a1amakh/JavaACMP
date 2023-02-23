@@ -1,7 +1,7 @@
 /**
  * Task No11 from acmp.ru
  * 
- * This task is solved with the help of Bonacci N-numbers.
+ * This task is solved with the help of Bonacci N-numbers
  * The next number is obtained from the sum of the N previous numbers.
  * What do I want to say? In the case of Fibonacci numbers, we add the previous two numbers to get the third one. 
  * And so on until we get the desired value.
