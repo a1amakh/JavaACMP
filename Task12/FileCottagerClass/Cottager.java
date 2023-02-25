@@ -1,10 +1,11 @@
+package FileCottagerClass;
 /**
  * Cottager class for Task No12
  */
 
 public class Cottager {
-	private int[] landingCoords = new int[2]; // Landing coordinates of the cottager
-	private int[] plotCoords = new int[8]; // Plot coordinates of the cottager
+	private int[] landingCoords; // Landing coordinates of the cottager
+	private int[] plotCoords; // Plot coordinates of the cottager
 
 	public Cottager(int[] landingCoords, int[] plotCoords) { // Construction for Class Cottager
 		this.landingCoords = landingCoords;
