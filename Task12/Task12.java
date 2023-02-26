@@ -2,8 +2,6 @@
  * Task No12 from acmp.ru
  */
 
-import java.util.Arrays;
-
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.File;
@@ -11,44 +9,42 @@ import java.io.FileNotFoundException;
 
 class Cottager { // Cottager
 	private int id; // ID of Cottager
-	private int[] landingCoords; // Landing coordinates of the cottager
+	private double[] landingCoords; // Landing coordinates of the cottager
 
-	public Cottager(int id, int[] landingCoords) { // Construction for Class Cottager
+	public Cottager(int id, double[] landingCoords) { // Construction for Class Cottager
 		this.id = id;
 		this.landingCoords = landingCoords;
 	}
 
-	public int[] getLandingCoords() { // Getter for getting landing coords
+	public double[] getLandingCoords() { // Getter for getting landing coords
 		return landingCoords;
 	}
 }
 
 class Plot { // Plot
 	private int id; // ID of Plot
-	private int[] plotCoords; // Plot coordinates
+	private double[] plotCoords; // Plot coordinates
 
-	public Plot(int id, int[] plotCoords) { // Construction for Class Plot
+	public Plot(int id, double[] plotCoords) { // Construction for Class Plot
 		this.id = id;
 		this.plotCoords = plotCoords;
 	}
 
-	// ----------------------------------------- ERROR ------------------------------------------
 	public double calcSquare() { // Method for calculate square of plot
-		// S = | A (Y1 - Y2) * B (X1 - X4) |
+		double result = 0;
 
 		// S = (|(х1 - х2)(у1 + у2) + (х2 - х3)(у2 + у3) + (х3 - х4)(у3 + у4) + (х4 - х1)(у4 + у1)|) / 2
-		
-		double a, b, result;
-
-		a = plotCoords[1] - plotCoords[3]; // Y1 - Y2
-		b = plotCoords[0] - plotCoords[6]; // X1 - X4
-		result = Math.abs(a * b); // Square
+		result = 0.5 * Math.abs( // Square
+			(plotCoords[0] - plotCoords[2]) * (plotCoords[1] + plotCoords[3]) +
+			(plotCoords[2] - plotCoords[4]) * (plotCoords[3] + plotCoords[5]) +
+			(plotCoords[4] - plotCoords[6]) * (plotCoords[5] + plotCoords[7]) +
+			(plotCoords[6] - plotCoords[0]) * (plotCoords[7] + plotCoords[1])
+		); 
 
 		return result;
 	}
-	// ----------------------------------------- ERROR ------------------------------------------
 
-	public int[] getPlotCoords() { // Getter for getting plot coords
+	public double[] getPlotCoords() { // Getter for getting plot coords
 		return plotCoords;
 	}
 }
@@ -67,22 +63,17 @@ class Task12 {
 	private static int countingLandedCottagers() { // Counting cottagers who landed on their plots
 		int result = 0; // Result of counting cottagers who landed on their plots
 
-		for (int i = 0; i < n; i++) {
-
-			System.out.println(plots[i].calcSquare());
-			System.out.println(calcSumOfTriangleSquares(i));
-
+		for (int i = 0; i < n; i++)
 			if (plots[i].calcSquare() == calcSumOfTriangleSquares(i)) // If squares equal
 				result++;
-		}
 
 		return result;
 	}
 
 	private static double calcSumOfTriangleSquares(int i) { // Method for calculate sum of triangle squares
 		double result = 0;
-		int[] tempLandingCoords = cottagers[i].getLandingCoords();
-		int[] tempPlotCoords = plots[i].getPlotCoords();
+		double[] tempLandingCoords = cottagers[i].getLandingCoords();
+		double[] tempPlotCoords = plots[i].getPlotCoords();
 
 		result += 0.5 * Math.abs( // First triangle
 			// (X2 - X)	* (Y1 - Y) - (X1 - X) * (Y2 - Y) 
@@ -110,16 +101,16 @@ class Task12 {
 
 	private static boolean readInputFile() { // Method for read file "INPUT.txt"
 		try (Scanner scanner = new Scanner(new File("INPUT.txt"))) { // Try to open file "INPUT.txt"
-			int[] tempLandingCoords; // Temp array for coordinates of the landing cottager
-			int[] tempPlotCoords; // Temp array for coordinates of the plot
+			double[] tempLandingCoords; // Temp array for coordinates of the landing cottager
+			double[] tempPlotCoords; // Temp array for coordinates of the plot
 
 			n = scanner.nextInt(); // Set N
 			cottagers = new Cottager[n]; // Create Cottager arr with length N
 			plots = new Plot[n];
 
 			for (int i = 0; i < n; i++) {
-				tempLandingCoords = new int[2];
-				tempPlotCoords = new int[8];
+				tempLandingCoords = new double[2];
+				tempPlotCoords = new double[8];
 
 				tempLandingCoords[0] = scanner.nextInt(); // Set landing coords
 				tempLandingCoords[1] = scanner.nextInt(); // Set landing coords
