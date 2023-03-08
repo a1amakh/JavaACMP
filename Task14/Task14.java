@@ -1,67 +1,94 @@
 /**
- * Task No14 from acmp.ru
+ * Task No14 "НОК" acmp.ru
+ * @author a1amakh
  */
 
-import java.util.Scanner;
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
 
 class Task14 {
-	private static long a, b; // A and B
+	private static long firstNumber, secondNumber, NOKFromFirstAndSecondNumbers;
 
 	public static void main(String[] args) {
-		// If file "INPUT.txt" successfully read - true
-		if (readInputFile())
-			writeOutputFile();
+		if (InputFile.readInputFile())
+			OutputFile.writeOutputFile();
 	}
 
-	private static long getNOK() { // Method for getting NOK from A and B
-		long result = 0L;
-		List<Integer> multipliersOfA = new ArrayList<>(); // Multipliers of A
-		List<Integer> multipliersOfB = new ArrayList<>(); // Multipliers of B
+	private static void defineNOKFromFirstAndSecondNumbers() {
+		List<Integer> multipliersOfFirstNumber = new ArrayList<>();
+		List<Integer> multipliersOfSecondNumber = new ArrayList<>();
+		getFactorization(multipliersOfFirstNumber);
+		getFactorization(multipliersOfSecondNumber);
 
-		getFactorization(multipliersOfA);
-		getFactorization(multipliersOfB);
+		// ...some codeee
+	}
+
+	private static List<Integer> getFactorization(List<Integer> multipliers) {
+		List<Integer> factorization = multipliers;
 
 		// ...some codeee
 
 		return result;
 	}
 
-	private static List<Integer> getFactorization(List<Integer> multipliers) { // Method for getting factorization
-		List<Integer> result = multipliers;
-
-		// ...some codeee
-
-		return result;
+	public static void setFirstNumber(long firstNumber) {
+		Task14.firstNumber = firstNumber;
 	}
 
-	private static boolean readInputFile() { // Method for read file "INPUT.txt"
-		try (Scanner scanner = new Scanner(new File("INPUT.txt"))) { // Try to open file "INPUT.txt"
-			a = scanner.nextLong(); // Set A
-			b = scanner.nextLong(); // Set B
-		
-            System.out.println("File \"INPUT.txt\" successfully read"); // Show message when file "INPUT.txt" successfully read
+	public static void setSecondNumber(long secondNumber) {
+		Task14.secondNumber = secondNumber;
+	}
+
+	public static long getNOKFromFirstAndSecondNumbers() {
+		return NOKFromFirstAndSecondNumbers;
+	}
+}
+
+class InputFile {
+	private static final String INPUT_FILE_PATHNAME = "INPUT.txt";
+
+	public static boolean readInputFile() { 
+		try (Scanner reader = new Scanner(new File(INPUT_FILE_PATHNAME))) { 
+			Task14.setFirstNumber(reader.nextLong());
+			Task14.setSecondNumber(reader.nextLong());
+            successfulMessage();
 			return true;
         } catch (FileNotFoundException e) {
-            System.out.println("File \"INPUT.txt\" not found"); // Show message when file "INPUT.txt" not found
+            errorMessage();
 			return false;
         }
 	}
 
-	private static boolean writeOutputFile() { // Method for write file "OUTPUT.txt"
-		try (PrintWriter printWriter = new PrintWriter(new File("OUTPUT.txt"))) { // Try to open file "OUTPUT.txt" 
-			printWriter.println(getNOK()); // Print result (NOK)
+	private static void successfulMessage() {
+		System.out.println("File " + INPUT_FILE_PATHNAME + " successfully read");
+	}
+	
+	private static void errorMessage() {
+		System.out.println("File " + INPUT_FILE_PATHNAME + " not found");
+	}
 
-			System.out.println("File \"OUTPUT.txt\" successfully written"); // Show message when file "OUTPUT.txt" successfully written
+	
+}
+
+class OutputFile {
+	private static final String OUTPUT_FILE_PATHNAME = "OUTPUT.txt";
+
+	public static boolean writeOutputFile() {
+		try (PrintWriter writer = new PrintWriter(new File(OUTPUT_FILE_PATHNAME))) {
+			writer.println(Task14.getNOKFromFirstAndSecondNumbers());
+			successfulMessage();
 			return true;
 		} catch (FileNotFoundException e) {
-			System.out.println("File \"OUTPUT.txt\" not found"); // Show message when file "OUTPUT.txt" not found
+			errorMessage();
 			return false;
 		}
+	}
+
+	private static void successfulMessage() {
+		System.out.println("File " + OUTPUT_FILE_PATHNAME + " successfully written");
+	}
+	
+	private static void errorMessage() {
+		System.out.println("File " + OUTPUT_FILE_PATHNAME + " not found");
 	}
 }
