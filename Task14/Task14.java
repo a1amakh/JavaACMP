@@ -15,20 +15,13 @@ class Task14 {
 	}
 
 	private static void defineNOKFromFirstAndSecondNumbers() {
-		List<Integer> multipliersOfFirstNumber = new ArrayList<>();
-		List<Integer> multipliersOfSecondNumber = new ArrayList<>();
-		getFactorization(multipliersOfFirstNumber);
-		getFactorization(multipliersOfSecondNumber);
-
-		// ...some codeee
+		
 	}
 
-	private static List<Integer> getFactorization(List<Integer> multipliers) {
-		List<Integer> factorization = multipliers;
+	private static List<Integer> defineMultipliersOfNumber(long number) {
+		List<Integer> multipliersOfNumber = new ArrayList<>();
 
-		// ...some codeee
-
-		return result;
+		return multipliersOfNumber;
 	}
 
 	public static void setFirstNumber(long firstNumber) {
